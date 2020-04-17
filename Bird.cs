@@ -19,6 +19,7 @@ namespace SquawkyCock
 
         public override void Update(GameTime gameTime, InputHelper inputHelper)
         {
+            //set gravity physics
             if (startGravity)
             {
                 velocity.Y += gravity;
@@ -37,7 +38,7 @@ namespace SquawkyCock
                 }
             }
                 
-            
+            //Press the spacebar to jump up
             if (inputHelper.KeyPressed(Keys.Space))
             {
                 velocity.Y = jumpSpeed;

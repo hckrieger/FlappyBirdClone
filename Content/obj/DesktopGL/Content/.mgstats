@@ -1,0 +1,5 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/hunte/source/repos/SquawkyCock/Content/../../../../Downloads/BottomPipe.png","C:/Users/hunte/source/repos/SquawkyCock/Content/bin/DesktopGL/Content/BottomPipe.xnb","TextureProcessor","Texture2DContent",1395,166485,0.3590868
+"C:/Users/hunte/source/repos/SquawkyCock/Content/../../../../Downloads/TopPipe.png","C:/Users/hunte/source/repos/SquawkyCock/Content/bin/DesktopGL/Content/TopPipe.xnb","TextureProcessor","Texture2DContent",1392,166485,0.0210051
+"C:/Users/hunte/source/repos/SquawkyCock/Content/bird.png","C:/Users/hunte/source/repos/SquawkyCock/Content/bin/DesktopGL/Content/bird.xnb","TextureProcessor","Texture2DContent",120,4181,0.2940762
+"C:/Users/hunte/source/repos/SquawkyCock/Content/debug.spritefont","C:/Users/hunte/source/repos/SquawkyCock/Content/bin/DesktopGL/Content/debug.xnb","FontDescriptionProcessor","SpriteFontContent",2008,21521,0.5702636

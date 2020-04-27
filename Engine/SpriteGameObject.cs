@@ -16,6 +16,8 @@ class SpriteGameObject : GameObject
     /// </summary>
     protected Vector2 origin;
 
+    protected Color color;
+
     /// <summary>
     /// Creates a new SpriteGameObject with a given sprite name.
     /// </summary>
@@ -24,7 +26,10 @@ class SpriteGameObject : GameObject
     {
         sprite = ExtendedGame.AssetManager.LoadSprite(spriteName);
         origin = Vector2.Zero;
+        color = Color.White;
     }
+
+ 
 
     /// <summary>
     /// Draws this SpriteGameObject on the screen, using its global position and origin. 
@@ -37,7 +42,7 @@ class SpriteGameObject : GameObject
         if (Visible)
         {
             // draw the sprite at its *global* position in the game world
-            spriteBatch.Draw(sprite, GlobalPosition, null, Color.White,
+            spriteBatch.Draw(sprite, GlobalPosition, null, color,
                 0, origin, 1.0f, SpriteEffects.None, 0);
         }
     }

@@ -10,12 +10,8 @@ class GameObject
     /// The position of this game object, relative to its parent in the game-object hierachy.
     /// </summary>
     /// 
-    protected Vector2 localPosition;
 
-    public Vector2 LocalPosition { 
-        get { return localPosition; }
-        set { localPosition = value; }
-    }
+    public Vector2 LocalPosition { get; set; }
 
     /// <summary>
     /// The current velocity of this game object, in units per second.

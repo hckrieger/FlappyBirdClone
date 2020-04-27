@@ -8,10 +8,15 @@ namespace SquawkyCock
         
         public BottomPipe() : base("BottomPipe")
         {
-            SetOriginToCenter();
-            LocalPosition = new Vector2(0, 500);
+            //SetOriginToCenter();
+            LocalPosition = new Vector2(0, 475);
 
             
+        }
+
+        public override void Update(GameTime gameTime, InputHelper inputHelper)
+        {
+            base.Update(gameTime, inputHelper);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

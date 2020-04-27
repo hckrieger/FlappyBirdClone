@@ -6,25 +6,43 @@ namespace SquawkyCock
     class PipeSpawner : GameObject
     {
         //Make a list of the pipes 
-        public List<Pipes> pipes = new List<Pipes>();
+        public List<Pipes> Pipes { get; set; }
+        public Pipes PipeServer { get; set; }
+        public bool Playing { get; set; }
 
-        float timer = 2f;
+        float timer = 1f;
 
         public PipeSpawner()
         {
-            
+            Pipes = new List<Pipes>();
+            Playing = true;
         }
+
         public override void Update(GameTime gameTime, InputHelper inputHelper)
         {
-            timer -= dt;
-            if (timer <= 0)
+            if (Playing && SquawkyCock.GameWorld.Bird.Gravity)
             {
-                //Instansiate a pipe every two seconds and reset the timer
-                pipes.Add(new Pipes());
-                timer = 2f;
+                timer -= dt;
+                if (timer <= 0)
+                {
+                    //Instansiate a pipe every two seconds and reset the timer
+                    var pipe = new Pipes();
+                    Pipes.Add(pipe);
+                    PipeServer = pipe;
+                    timer = 2f;
+                }
             }
+
 
             base.Update(gameTime, inputHelper);
         }
+
+        public override void Reset()
+        {
+            Playing = true;
+            timer = 1;
+        }
+
+
     }
 }

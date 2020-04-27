@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Bird.cs" />
     <Compile Include="BottomPipe.cs" />
-    <Compile Include="Debug.cs" />
     <Compile Include="Engine\AssetManager.cs" />
     <Compile Include="Engine\ExtendedGame.cs" />
     <Compile Include="Engine\GameObject.cs" />

@@ -1,57 +1,89 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using System.Collections.Generic;
 namespace SquawkyCock
 {
     class GameWorld : GameObjectList
     {
+        public Bird Bird { get; private set; }
         PipeSpawner spawner = new PipeSpawner();
+
         SquawkyCock game;
-
-
-        Bird bird = new Bird();
 
         public GameWorld(SquawkyCock game)
         {
             this.game = game;
 
-            //Add player instance to gameobject heirarchy
-            AddChild(bird);
+            
+            
 
             //Add the pipe spawner instance to game object heirarchy
             AddChild(spawner);
 
-        }
+            //Add player instance to gameobject heirarchy
+            AddChild(Bird = new Bird());
 
-        /* The problem is that the pipes move way to fast at 100 units persecond when I add a list object 
-           as a child to the game object heirarchy in the update method.   Would you know why that is?  
-           It doesn't clone the pipes when I put this logic in the constructor so I don't know what other
-           choice I have */
+        }
 
         public override void Update(GameTime gameTime, InputHelper inputHelper)
         {
-            // iterate through the list of pipes located in the PipeSpawner object
-            for (int i = 0; i < spawner.pipes.Count; i++)
+
+            if (spawner.PipeServer != null)
             {
-                //Add each pipe clone to the game object heirarchy 
-                AddChild(spawner.pipes[i]);
 
-
-                // Set offscreen bool to true when pipes are off the screen coordinates 
-                if (spawner.pipes[i].LocalPosition.X < 200)
-                {
-                    spawner.pipes[i].offScreen = true;
-                }
+                AddChild(spawner.PipeServer);
+                spawner.PipeServer = null;
             }
 
-            // Remove all pipes when offscreen bool is set to true. (This sadly doesn't work like it should right now.)
-            spawner.pipes.RemoveAll(a => a.offScreen == true);
 
-          
-                
-           
+            // Set offscreen bool to true when pipes are off the screen coordinates 
+            int count = spawner.Pipes.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                //If the bird collides with the top or bottom pipes......
+                if (Bird.BoundingBox.Intersects(spawner.Pipes[i].TopPipe.BoundingBox) ||
+                    Bird.BoundingBox.Intersects(spawner.Pipes[i].BottomPipe.BoundingBox))
+                {
+                    spawner.Playing = false;
+                    spawner.Pipes[i].Speed = 0f;
+                    spawner.Pipes[count - 1].Speed = 0f;
+                    Bird.HitPipe = true;
+
+                }
+
+                if (Bird.LocalPosition.Y > 675)
+                {
+                    RemoveChild(spawner.Pipes[i]);
+                    RemoveChild(spawner.Pipes[count - 1]);
+
+                }
+
+
+                if (spawner.Pipes[i].LocalPosition.X < -100)
+                {
+                    spawner.Pipes[i].OffScreen = true;
+                    RemoveChild(spawner.Pipes[i]);
+                }
+
+            }
+
+            if (Bird.LocalPosition.Y > 675)
+            {
+                spawner.Pipes.Clear();
+                spawner.Reset();
+                Bird.Reset();
+            }
+
+            spawner.Pipes.RemoveAll(a => a.OffScreen == true);
+
+
+
+
             base.Update(gameTime, inputHelper);
         }
+
+
 
 
     }

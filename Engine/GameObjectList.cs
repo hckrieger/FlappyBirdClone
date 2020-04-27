@@ -10,7 +10,9 @@ class GameObjectList : GameObject
     /// <summary>
     /// The child objects of this game object.
     /// </summary>
-    List<GameObject> children;
+    protected List<GameObject> children;
+
+    
 
     /// <summary>
     /// Creates a new GameObjectList with an empty list of children.
@@ -28,6 +30,11 @@ class GameObjectList : GameObject
     {
         obj.Parent = this;
         children.Add(obj);
+    }
+
+    public void RemoveChild(GameObject obj)
+    {
+        children.Remove(obj);
     }
 
     /// <summary>

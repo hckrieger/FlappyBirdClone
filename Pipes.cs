@@ -1,41 +1,60 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace SquawkyCock
 {
     class Pipes : GameObject
     {
+
         //Get instance of the top pipe
-        TopPipe topPipe = new TopPipe();
+        public TopPipe TopPipe { get; private set; }
 
         //Get instance of bottom pipe
-        BottomPipe bottomPipe = new BottomPipe();
+        public BottomPipe BottomPipe { get; private set; }
 
-        public bool offScreen = false;
+        public bool OffScreen { get; set; }
+
+        public float Speed { get; set; }
 
         public Pipes()
         {
-            LocalPosition = new Vector2(500, ExtendedGame.Random.Next(-400, -50));
+            LocalPosition = new Vector2(500, ExtendedGame.Random.Next(-380, -25));
+
+            TopPipe = new TopPipe();
+            BottomPipe = new BottomPipe();
+            Speed = -150;
+            OffScreen = false;
 
             //Make this object the Parent of the top and bottom pipes so they can move together as a unit
-            topPipe.Parent = this;
-            bottomPipe.Parent = this;
+            TopPipe.Parent = this;
+            BottomPipe.Parent = this; 
         }
 
         public override void Update(GameTime gameTime, InputHelper inputHelper)
         {
             // move to the left side of the screen 100 units per second
-            velocity.X = -100;
+            velocity.X = Speed;
+
+
+
+
             base.Update(gameTime, inputHelper);
+        }
+
+        public override void Reset()
+        {
+            velocity.X = Speed;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // draw the top and bottom pipes so it connects to this game object when added to the heirarchy
-            topPipe.Draw(gameTime, spriteBatch);
-            bottomPipe.Draw(gameTime, spriteBatch);
+            TopPipe.Draw(gameTime, spriteBatch);
+            BottomPipe.Draw(gameTime, spriteBatch);
             base.Draw(gameTime, spriteBatch);
         }
+
+
     }
 }

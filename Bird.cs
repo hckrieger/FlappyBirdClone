@@ -5,47 +5,76 @@ namespace SquawkyCock
 {
     class Bird : SpriteGameObject
     {
-        const float jumpSpeed = -400;
-        float gravity;
+        
+        public bool HitPipe { get; set; }
+        public bool Gravity { get; set; }
+
+        float jumpSpeed = -400;
+        float fallSpeed;
         const float maxFallSpeed = 500;
         const float minFallSpeed = 100;
-        bool startGravity = false;
+        
+        
 
         public Bird() : base("bird")
         {
             SetOriginToCenter();
-            LocalPosition = new Vector2(192, 325);      
+            LocalPosition = new Vector2(192, 325);
+            HitPipe = false;
         }
 
         public override void Update(GameTime gameTime, InputHelper inputHelper)
         {
             //set gravity physics
-            if (startGravity)
+            if (Gravity)
             {
-                velocity.Y += gravity;
+                velocity.Y += fallSpeed;
 
                 if (velocity.Y > maxFallSpeed)
                 {
-                    gravity = 0;
+                    fallSpeed = 0;
 
-                } else if (velocity.Y < minFallSpeed)
+                }
+                else if (velocity.Y < minFallSpeed)
                 {
-                    gravity = 25f;
+                    fallSpeed = 25f;
                 }
                 else
                 {
-                    gravity = 15f;
+                    fallSpeed = 15f;
+                }
+            } 
+
+
+            //Press the spacebar to jump up
+            if (!HitPipe)
+            { 
+                if (inputHelper.KeyPressed(Keys.Space))
+                {
+                    velocity.Y = jumpSpeed;
+                    Gravity = true;
+                    
                 }
             }
-                
-            //Press the spacebar to jump up
-            if (inputHelper.KeyPressed(Keys.Space))
-            {
-                velocity.Y = jumpSpeed;
-                startGravity = true;
-            }
+
+            
+
 
             base.Update(gameTime, inputHelper);
+
         }
+
+        public override void Reset()
+        {
+            Gravity = false;
+            HitPipe = false;
+            velocity.Y = 0;
+            jumpSpeed = -400;
+            LocalPosition = new Vector2(192, 325);
+            
+        }
+  
+
+
     }
 }
